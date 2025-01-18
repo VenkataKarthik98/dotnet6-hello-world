@@ -25,6 +25,9 @@ jobs:
     - name: Run tests
       run: dotnet test --configuration Release
 
+    - name: Publish
+      run: dotnet publish --configuration Release --no-restore --output ./output
+
     - name: Upload artifact to Nexus
       env:
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
