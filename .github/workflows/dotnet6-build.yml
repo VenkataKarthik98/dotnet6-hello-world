@@ -31,9 +31,14 @@ jobs:
     - name: List output directory
       run: ls -la ./output
 
-    # - name: Upload artifact to Nexus
-    #   env:
-    #     NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-    #     NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-    #   run: |
-    #     curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file ./output/myapp.zip http://localhost:8081/repository/dotnet-nexus/myapp.zip
+    - name: Create zip archive
+      run: |
+        cd ./output
+        zip -r ../myapp.zip .
+
+    - name: Upload artifact to Nexus
+      env:
+        NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      run: |
+        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file myapp.zip http://localhost:8081/repository/dotnet-nexus/myapp.zip
