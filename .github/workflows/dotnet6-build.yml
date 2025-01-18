@@ -16,8 +16,14 @@ jobs:
       with:
         dotnet-version: '6.0'
 
+    - name: Restore dependencies
+      run: dotnet restore
+      
     - name: Build
       run: dotnet build --configuration Release
+
+    - name: Run tests
+      run: dotnet test --configuration Release
 
     - name: Upload artifact to Nexus
       env:
