@@ -28,6 +28,9 @@ jobs:
     - name: Publish
       run: dotnet publish --configuration Release --no-restore --output ./output
 
+    - name: Package
+      run: dotnet pack --configuration Release --no-build --output ./packages
+
     - name: List output directory
       run: ls -la ./output
 
@@ -41,4 +44,7 @@ jobs:
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       run: |
-        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file myapp.zip http://10.6.99.39:8081/repository/dotnet-nexus/myapp.zip
+        for file in ./packages/*.nupkg; do
+          curl -v -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file $file http://10.6.99.39:8081/repository/dotnet6-build/
+        done
+        # curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file myapp.zip http://10.6.99.39:8081/repository/dotnet-nexus/myapp.zip
