@@ -40,7 +40,7 @@
 
   <!-- create a single binary file that contains all we need to run the app -->
   <PropertyGroup>
-    <PublishSingleFile>true</PublishSingleFile>
+    <PublishSingleFile>false</PublishSingleFile>
   </PropertyGroup>
 
 </Project>
