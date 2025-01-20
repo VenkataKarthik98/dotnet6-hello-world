@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
@@ -44,7 +44,7 @@ jobs:
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       run: |
-        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file myapp.zip http://10.6.54.102:8081/repository/dotnet-nexus/myapp.zip
+        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file myapp.zip http://localhost:8081/repository/dotnet-nexus/myapp.zip
         # for file in ./packages/*.nupkg; do
         #   curl -v -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file $file http://10.6.54.102:8081/repository/dotnet6-build/
         # done
