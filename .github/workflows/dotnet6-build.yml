@@ -39,7 +39,7 @@ jobs:
         cd ./output
         zip -r ../myapp.zip .
 
-    - name: Upload artifact to Nexus
+    - name: Upload Artifact to Nexus
       env:
         NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
         NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
