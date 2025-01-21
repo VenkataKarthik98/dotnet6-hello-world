@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+    env:
+      DOTNET_INSTALL_DIR: C:\Users\2000087361\Documents\Nexus_Assignement\Dotnet
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
     steps:
     - name: Checkout code
