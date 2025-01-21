@@ -35,7 +35,7 @@ jobs:
       run: dotnet pack --configuration Release --no-build --output ./packages
 
     - name: List output directory
-      run: ls -la ./output
+      run: ls ./output
 
     - name: Create zip archive
       run: |
