@@ -40,7 +40,8 @@ jobs:
     - name: Create zip archive
       run: |
         cd ./output
-        zip -r ../myapp.zip .
+        Compress-Archive -Path * -DestinationPath ../myapp.zip
+      shell: pwsh
 
     - name: Upload Artifact to Nexus
       env:
