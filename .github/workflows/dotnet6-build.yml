@@ -41,7 +41,7 @@ jobs:
       run: |
         cd ./output
         Compress-Archive -Path * -DestinationPath ../myapp.zip
-      shell: pwsh
+      shell: powershell
 
     - name: Upload Artifact to Nexus
       env:
