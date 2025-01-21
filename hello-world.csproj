@@ -22,9 +22,9 @@
   <ItemGroup>
     <ProjectReference Include="lib\library.csproj" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <PackageReference Include="NLog" Version="5.0.2" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <!-- copy file ./data/NLog.config to target directory -->
   <!---
