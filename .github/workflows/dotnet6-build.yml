@@ -61,34 +61,41 @@ jobs:
     #   shell: powershell
 
     - name: Upload Artifact to Nexus
-      shell: powershell
-      env:
-        NEXUS_URL: ${{ secrets.NEXUS_URL }}
-        NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
       run: |
-        $boundary = [System.Guid]::NewGuid().ToString()
-        $headers = @{
-            Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:admin123"))
-            "Content-Type" = "multipart/form-data; boundary=$boundary"
-        }
+        curl -v -u admin:admin123 \
+        --upload-file C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip \
+        http://localhost:8081/repository/dotnet6-build/myapp.zip
+    
+
+    # - name: Upload Artifact to Nexus
+    #   shell: powershell
+    #   env:
+    #     NEXUS_URL: ${{ secrets.NEXUS_URL }}
+    #     NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+    #     NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+    #   run: |
+    #     $boundary = [System.Guid]::NewGuid().ToString()
+    #     $headers = @{
+    #         Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:admin123"))
+    #         "Content-Type" = "multipart/form-data; boundary=$boundary"
+    #     }
         
-        $filePath = "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip"
-        $fileContent = [System.IO.File]::ReadAllBytes($filePath)
+    #     $filePath = "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip"
+    #     $fileContent = [System.IO.File]::ReadAllBytes($filePath)
         
-        $body = @"
-        --$boundary
-        Content-Disposition: form-data; name="file"; filename="myapp.zip"
-        Content-Type: application/zip
+    #     $body = @"
+    #     --$boundary
+    #     Content-Disposition: form-data; name="file"; filename="myapp.zip"
+    #     Content-Type: application/zip
         
-        $( [System.Text.Encoding]::ASCII.GetString($fileContent) )
-        --$boundary--
-        "@
+    #     $( [System.Text.Encoding]::ASCII.GetString($fileContent) )
+    #     --$boundary--
+    #     "@
             
-            Invoke-RestMethod -Uri "http://localhost:8081/repository/dotnet6-build/" `
-                              -Method Post `
-                              -Body $body `
-                              -Headers $headers
+    #         Invoke-RestMethod -Uri "http://localhost:8081/repository/dotnet6-build/" `
+    #                           -Method Post `
+    #                           -Body $body `
+    #                           -Headers $headers
 
 
     # - name: Upload Artifact to Nexus
