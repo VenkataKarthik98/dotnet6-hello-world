@@ -3,10 +3,6 @@ name: .NET 6 Build
 on:
   # workflow_dispatch:
   workflow_call:
-
-defaults:
-    run:
-      working-directory: 'VenkataKarthik98/dotnet6-hello-world'
       
 jobs:
   build:
