@@ -3,4 +3,4 @@ on:
   workflow_dispatch:
 jobs:
   call-shared-workflow:
-    uses: VenkataKarthik98/Called-Workflow/.github/workflows/call-shared-module-workflow.yml@main
+    uses: VenkataKarthik98/Called-Workflow/.github/workflows/shared-module-workflow.yml@main
