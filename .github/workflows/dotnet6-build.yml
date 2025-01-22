@@ -4,4 +4,3 @@ on:
 jobs:
   call-shared-workflow:
     uses: VenkataKarthik98/Called-Workflow/.github/workflows/call-shared-module-workflow.yml@main
-    
