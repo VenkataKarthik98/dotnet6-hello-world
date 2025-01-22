@@ -1,7 +1,8 @@
 name: .NET 6 Build
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
