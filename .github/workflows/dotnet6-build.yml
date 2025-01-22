@@ -40,6 +40,10 @@ jobs:
     - name: Create zip archive
       run: |
         cd ./output
+        if(Test-Path C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip)
+        {
+          Remove-Item C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
+        }
         Compress-Archive -Path * -DestinationPath C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
       shell: powershell
 
