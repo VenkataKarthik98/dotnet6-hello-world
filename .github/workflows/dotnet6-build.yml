@@ -61,6 +61,7 @@ jobs:
     #   shell: powershell
 
     - name: Upload Artifact to Nexus
+      shell: bash
       run: |
         curl -v -u admin:admin123 \
         --upload-file C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip \
