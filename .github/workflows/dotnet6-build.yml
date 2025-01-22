@@ -54,4 +54,4 @@ jobs:
         # for file in ./packages/*.nupkg; do
         #   curl -v -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file $file http://10.6.54.102:8081/repository/dotnet6-build/
         # done
-      shell: bash
+      shell: powershell
