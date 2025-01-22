@@ -66,7 +66,7 @@ jobs:
         $headers = @{
             Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD2 }}"))
         }
-        Invoke-WebRequest -Uri "${{ secrets.NEXUS_URL }}/myapp.zip" `
+        Invoke-WebRequest -Uri "http://localhost:8081/repository/dotnet6-nexus" `
                           -Method Put `
                           -InFile "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip" `
                           -Headers $headers
