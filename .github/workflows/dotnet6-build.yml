@@ -73,7 +73,7 @@ jobs:
             "Content-Type" = "multipart/form-data; boundary=$boundary"
         }
         
-        $filePath = "C:\Users2000087361DocumentsNexus_Assignement\actions-runner_work\dotnet6-hello-world\myapp.zip"
+        $filePath = "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip"
         $fileContent = [System.IO.File]::ReadAllBytes($filePath)
         
         $body = @"
