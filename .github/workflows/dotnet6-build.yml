@@ -17,9 +17,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        repository: VenkataKarthik98/dotnet6-hello-world
+        repository: VenkataKarthik98/Called-Workflow
         ref: master
-        path: VenkataKarthik98/Called-Workflow
+        path: VenkataKarthik98/dotnet6-hello-world
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
