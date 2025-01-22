@@ -48,29 +48,7 @@ jobs:
       shell: powershell
 
     # - name: Upload Artifact to Nexus
-    #   # env:
-    #   #   NEXUS_URL: ${{ secrets.NEXUS_URL }}
-    #   #   NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-    #   #   NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD2 }}
-    #   run: |
-    #     curl -v -u admin:admin123 --upload-file ../myapp.zip http://localhost:8081/repository/dotnet6-nexus/myapp.zip
-    #     # curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file myapp.zip http://localhost:8081/repository/dotnet6-nexus/myapp.zip
-    #     # for file in ./packages/*.nupkg; do
-    #     #   curl -v -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file $file http://10.6.54.102:8081/repository/dotnet6-build/
-    #     # done
     #   shell: powershell
-
-    - name: Upload Artifact to Nexus
-      run: |
-        curl -v -u admin:admin123 --upload-file C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip http://localhost:8081/repository/dotnet6-build/myapp.zip
-    
-
-    # - name: Upload Artifact to Nexus
-    #   shell: powershell
-    #   env:
-    #     NEXUS_URL: ${{ secrets.NEXUS_URL }}
-    #     NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-    #     NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
     #   run: |
     #     $boundary = [System.Guid]::NewGuid().ToString()
     #     $headers = @{
@@ -96,17 +74,13 @@ jobs:
     #                           -Headers $headers
 
 
-    # - name: Upload Artifact to Nexus
-    #   shell: powershell
-    #   env:
-    #     NEXUS_URL: ${{ secrets.NEXUS_URL }}
-    #     NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
-    #     NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-    #   run: |
-    #     $headers = @{
-    #         Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD2 }}"))
-    #     }
-    #     Invoke-WebRequest -Uri "http://localhost:8081/repository/dotnet6-build/" `
-    #                       -Method Put `
-    #                       -InFile "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip" `
-    #                       -Headers $headers
+    - name: Upload Artifact to Nexus
+      shell: powershell
+      run: |
+        $headers = @{
+            Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD2 }}"))
+        }
+        Invoke-WebRequest -Uri "http://localhost:8081/repository/dotnet6-build/" `
+                          -Method Put `
+                          -InFile "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip" `
+                          -Headers $headers
