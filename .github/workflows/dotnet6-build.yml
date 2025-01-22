@@ -69,7 +69,7 @@ jobs:
       run: |
         $boundary = [System.Guid]::NewGuid().ToString()
         $headers = @{
-            Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }}"))
+            Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:admin123"))
             "Content-Type" = "multipart/form-data; boundary=$boundary"
         }
         
