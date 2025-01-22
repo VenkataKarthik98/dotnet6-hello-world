@@ -4,6 +4,10 @@ on:
   # workflow_dispatch:
   workflow_call:
 
+defaults:
+    run:
+      working-directory: 'VenkataKarthik98/dotnet6-hello-world'
+      
 jobs:
   build:
     runs-on: self-hosted
