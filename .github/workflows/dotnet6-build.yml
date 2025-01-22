@@ -1,94 +1,102 @@
-name: .NET 6 Build
-
+name: Call Shared Workflow
 on:
-  # workflow_dispatch:
-  workflow_call:
-      
+  workflow_dispatch:
 jobs:
-  build:
-    runs-on: self-hosted
-    env:
-      DOTNET_INSTALL_DIR: C:\Users\2000087361\Documents\Nexus_Assignement\Dotnet
+  call-shared-workflow:
+    uses: VenkataKarthik98/Called-Workflow/.github/workflows/call-shared-module-workflow.yml@main
 
-    steps:
-    # - name: Checkout code
-    #   uses: actions/checkout@v3
 
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        repository: VenkataKarthik98/dotnet6-hello-world
-        ref: master
-        path: VenkataKarthik98/Called-Workflow
+# name: .NET 6 Build
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0'
+# on:
+#   # workflow_dispatch:
+#   workflow_call:
+      
+# jobs:
+#   build:
+#     runs-on: self-hosted
+#     env:
+#       DOTNET_INSTALL_DIR: C:\Users\2000087361\Documents\Nexus_Assignement\Dotnet
 
-    - name: Restore dependencies
-      run: dotnet restore
+#     steps:
+#     # - name: Checkout code
+#     #   uses: actions/checkout@v3
+
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+#       with:
+#         repository: VenkataKarthik98/dotnet6-hello-world
+#         ref: master
+#         path: VenkataKarthik98/Called-Workflow
+
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: '6.0'
+
+#     - name: Restore dependencies
+#       run: dotnet restore
 
       
-    - name: Build
-      run: dotnet build --configuration Release
+#     - name: Build
+#       run: dotnet build --configuration Release
 
-    - name: Run tests
-      run: dotnet test --configuration Release
+#     - name: Run tests
+#       run: dotnet test --configuration Release
 
-    - name: Publish
-      run: dotnet publish --configuration Release --no-restore --output ./output
+#     - name: Publish
+#       run: dotnet publish --configuration Release --no-restore --output ./output
 
-    - name: Package
-      run: dotnet pack --configuration Release --no-build --output ./packages
+#     - name: Package
+#       run: dotnet pack --configuration Release --no-build --output ./packages
 
-    - name: List output directory
-      run: ls ./output
+#     - name: List output directory
+#       run: ls ./output
 
-    - name: Create zip archive
-      run: |
-        cd ./output
-        if(Test-Path C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip)
-        {
-          Remove-Item C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
-        }
-        Compress-Archive -Path * -DestinationPath C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
-      shell: powershell
+#     - name: Create zip archive
+#       run: |
+#         cd ./output
+#         if(Test-Path C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip)
+#         {
+#           Remove-Item C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
+#         }
+#         Compress-Archive -Path * -DestinationPath C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
+#       shell: powershell
 
-    - name: Upload Artifact to Nexus
-      shell: powershell
-      run: |
-        $boundary = [System.Guid]::NewGuid().ToString()
-        $headers = @{
-            Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:admin123"))
-            "Content-Type" = "multipart/form-data; boundary=$boundary"
-        }
+#     - name: Upload Artifact to Nexus
+#       shell: powershell
+#       run: |
+#         $boundary = [System.Guid]::NewGuid().ToString()
+#         $headers = @{
+#             Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("admin:admin123"))
+#             "Content-Type" = "multipart/form-data; boundary=$boundary"
+#         }
         
-        $filePath = "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip"
-        $fileContent = [System.IO.File]::ReadAllBytes($filePath)
+#         $filePath = "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip"
+#         $fileContent = [System.IO.File]::ReadAllBytes($filePath)
         
-        $body = @"
-        --$boundary
-        Content-Disposition: form-data; name="file"; filename="myapp.zip"
-        Content-Type: application/zip
+#         $body = @"
+#         --$boundary
+#         Content-Disposition: form-data; name="file"; filename="myapp.zip"
+#         Content-Type: application/zip
         
-        $( [System.Text.Encoding]::ASCII.GetString($fileContent) )
-        --$boundary--
-        "@
+#         $( [System.Text.Encoding]::ASCII.GetString($fileContent) )
+#         --$boundary--
+#         "@
             
-            Invoke-RestMethod -Uri "http://localhost:8081/repository/dotnet6-build/" `
-                              -Method Post `
-                              -Body $body `
-                              -Headers $headers
+#             Invoke-RestMethod -Uri "http://localhost:8081/repository/dotnet6-build/" `
+#                               -Method Post `
+#                               -Body $body `
+#                               -Headers $headers
 
 
-    # - name: Upload Artifact to Nexus
-    #   shell: powershell
-    #   run: |
-    #     $headers = @{
-    #         Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD2 }}"))
-    #     }
-    #     Invoke-WebRequest -Uri "http://localhost:8081/repository/dotnet6-build/" `
-    #                       -Method Put `
-    #                       -InFile "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip" `
-    #                       -Headers $headers
+#     # - name: Upload Artifact to Nexus
+#     #   shell: powershell
+#     #   run: |
+#     #     $headers = @{
+#     #         Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD2 }}"))
+#     #     }
+#     #     Invoke-WebRequest -Uri "http://localhost:8081/repository/dotnet6-build/" `
+#     #                       -Method Put `
+#     #                       -InFile "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip" `
+#     #                       -Headers $headers
