@@ -15,8 +15,15 @@ jobs:
       DOTNET_INSTALL_DIR: C:\Users\2000087361\Documents\Nexus_Assignement\Dotnet
 
     steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v3
+
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        repository: VenkataKarthik98/dotnet6-hello-world
+        ref: master
+        path: VenkataKarthik98/Called-Workflow
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
