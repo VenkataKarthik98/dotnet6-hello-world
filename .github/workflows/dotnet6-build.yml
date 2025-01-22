@@ -40,7 +40,7 @@ jobs:
     - name: Create zip archive
       run: |
         cd ./output
-        Compress-Archive -Path * -DestinationPath ../myapp.zip
+        Compress-Archive -Path * -DestinationPath C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip
       shell: powershell
 
     # - name: Upload Artifact to Nexus
@@ -68,5 +68,5 @@ jobs:
         }
         Invoke-WebRequest -Uri "${{ secrets.NEXUS_URL }}/myapp.zip" `
                           -Method Put `
-                          -InFile "../myapp.zip" `
+                          -InFile "C:\Users\2000087361\Documents\Nexus_Assignement\actions-runner\_work\dotnet6-hello-world\myapp.zip" `
                           -Headers $headers
